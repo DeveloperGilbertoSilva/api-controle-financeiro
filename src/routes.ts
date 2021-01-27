@@ -1,19 +1,25 @@
 import express from 'express';
+import knex from './database/connection';
 
 const routes = express.Router();
 
-const users = [
-    'Diego',
-    'Cleiton',
-    'Robson',
-    'Juliete',
-    'Gilberto'
-];
+routes.get('/contas', async (request, response) => {
+    const contas = await knex('contas').select('*');
+    response.json(contas);
+});
 
-routes.get('/', (request, response) => {
-    //const search = String(request.query.search);
-    //const filteredUsers = users.filter(user => user.includes(search));
-    return response.json({message: 'Hello World'});
+routes.post('/contas', async (request, response) => {
+    const {
+        nome,
+        descricao
+    } = request.body;
+
+    await knex('contas').insert({
+        nome,
+        descricao
+    });
+
+    response.json({success: true});
 });
 
 export default routes;
