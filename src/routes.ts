@@ -3,17 +3,19 @@ import knex from './database/connection';
 
 const routes = express.Router();
 
+// ================== LISTAGEM DE CONTAS ==================
 routes.get('/contas', async (request, response) => {
     const contas = await knex('contas').select('*');
     response.json(contas);
 });
 
+// ==================INSERÇÃO DE CONTAS ==================
 routes.post('/contas', async (request, response) => {
     const {
         nome,
         descricao
     } = request.body;
-
+    
     await knex('contas').insert({
         nome,
         descricao
