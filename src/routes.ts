@@ -113,6 +113,7 @@ routes.post('/lancamentos', async (request, response) => {
         nome,
         descricao,
         tipo,
+        valor,
         contaId
     } = request.body;
     
@@ -120,6 +121,7 @@ routes.post('/lancamentos', async (request, response) => {
         nome,
         descricao,
         tipo,
+        valor,
         contaId
     });
 

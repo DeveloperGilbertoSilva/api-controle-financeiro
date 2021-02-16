@@ -7,6 +7,11 @@ const connection = knex({
         filename: path.resolve(__dirname, 'database.sqlite'),
     },
     useNullAsDefault: true,
+    pool: {
+        afterCreate: (conn:any, cb:any) => {conn.run('PRAGMA foreign_keys = ON', cb)}
+    }    
 });
+
+connection.raw("PRAGMA foreign_keys = ON");
 
 export default connection;
